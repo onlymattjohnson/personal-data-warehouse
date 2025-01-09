@@ -1,0 +1,7 @@
+{
+    "DB_NAME": "your_db_name_here",
+    "DB_USER": "your_username_here",
+    "BACKUP_DIR": "C:\\path\\to\\backup\\directory",
+    "PG_DUMP_PATH": "C:\\Program Files\\PostgreSQL\\version\\bin\\pg_dump.exe",
+    "PGPASSWORD": "your-password"
+}
