@@ -151,3 +151,69 @@ JOIN metrics.raw_loan_accounts la ON lp.loan_id = la.loan_id
 JOIN metrics.raw_lenders l ON la.lender_id = l.lender_id
 ORDER BY lp.payment_date DESC;
 ```
+
+## Retirement Accounts
+
+### Accounts
+```sql
+-- Insert retirement account
+INSERT INTO metrics.raw_retirement_accounts (
+    provider_name,
+    website_url,
+    contact_phone,
+    contact_email,
+    account_type,
+    account_number,
+    opened_date,
+    employer_name,
+    employer_sponsored
+) VALUES (
+    'Evergreen Valley Investments',
+    'https://www.evginvestments.com',
+    '1-888-555-0123',
+    'support@evginvestments.com',
+    'traditional_401k',
+    'EVG-401K-78901',
+    '2024-01-01',
+    'Summit Technologies',
+    true
+);
+```
+
+### Balances
+
+```sql
+-- Insert statement for this account
+WITH account_ref AS (
+    SELECT account_id 
+    FROM metrics.raw_retirement_accounts 
+    WHERE account_number = 'EVG-401K-78901'
+    LIMIT 1
+)
+INSERT INTO metrics.raw_retirement_statements (
+    account_id,
+    statement_date,
+    period_start_date,
+    period_end_date,
+    beginning_balance,
+    employee_contribution,
+    employer_contribution,
+    fees,
+    change_in_account_balance,
+    ending_balance,
+    dividends_and_interest
+) 
+SELECT 
+    account_id,
+    '2025-01-31',          -- statement date
+    '2025-01-01',          -- period start
+    '2025-01-31',          -- period end
+    45678.92,              -- beginning balance
+    750.00,                -- employee contribution
+    375.00,                -- employer contribution
+    -12.50,                -- fees
+    1234.58,               -- change in balance
+    47776.00,              -- ending balance
+    85.75                  -- dividends and interest
+FROM account_ref;
+```
