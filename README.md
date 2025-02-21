@@ -31,3 +31,11 @@ cp .env.template .env
 ```
 
 - Edit the `.env` file with your credentials and postgres information
+
+**4. Create database and tables**
+
+- Create the database:
+
+```bash
+pipenv run python db_setup.py
+```
