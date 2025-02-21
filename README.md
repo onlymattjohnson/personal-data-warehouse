@@ -21,3 +21,13 @@ Install the dependencies using `pipenv`:
 ```bash
 pipenv install
 ```
+
+**3. Set up environment variables**
+
+- Copy `.env.template` to `.env`:
+
+```bash
+cp .env.template .env
+```
+
+- Edit the `.env` file with your credentials and postgres information
